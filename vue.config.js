@@ -1,4 +1,4 @@
-// const { defineConfig } = require('@vue/cli-service')
+const registerRouter = require('./backend/router')
 module.exports = {
   css: {
     loaderOptions: {
@@ -10,5 +10,15 @@ module.exports = {
         `
       }
     }
+  },
+  devServer: {
+    // 这个是webPack v4的代理配置写法
+    onBeforeSetupMiddleware(devServer) {
+      registerRouter(devServer.app)
+    }
+    // 这个是webPack v3的代理配置写法
+    //  before(app) {
+    //   registerRouter(app)
+    // }
   }
 }
