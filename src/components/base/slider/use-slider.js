@@ -7,8 +7,9 @@ BScroll.use(Slide)
 
 export default function useSlider(wrapperRef) {
     const slider = ref(null)
+    const currentPageIndex = ref(0)
     onMounted(() => {
-        slider.value = new BScroll(wrapperRef.value, {
+      const sliderVal = slider.value = new BScroll(wrapperRef.value, {
             scrollX: true, // 开启横向滚动
             scrollY: false, // 关闭纵向滚动
             click: true, // 允许点击
@@ -17,9 +18,18 @@ export default function useSlider(wrapperRef) {
             probeType: 2, // 派发滚动事件的模式
             slide: true
         })
+        // 添加一个滚动事件，在滚动之前获取到将要滚动的下标
+        sliderVal.on('slideWillChange', (page) => {
+            currentPageIndex.value = page.pageX
+        })
     })
 
     onUnmounted(() => {
         slider.value.destroy()
     })
+
+    return {
+        slider,
+        currentPageIndex
+    }
 }
