@@ -16,7 +16,7 @@
             :key="item.id"
           >
             <div class="icon">
-              <img :src="item.pic" height="60" width="60">
+              <img v-lazy="item.pic" height="60" width="60">
             </div>
             <div class="text">
                 <h2 class="name">
