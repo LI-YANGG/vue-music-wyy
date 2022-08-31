@@ -16,7 +16,7 @@ export default function useSlider(wrapperRef) {
             momentum: false, // 关闭滚动动画
             bounce: false, // 关闭回弹动画
             probeType: 2, // 派发滚动事件的模式
-            slide: true
+            slide: true // 是否打开滚动模式
         })
         // 添加一个滚动事件，在滚动之前获取到将要滚动的下标
         sliderVal.on('slideWillChange', (page) => {

@@ -1,16 +1,44 @@
 <template>
 <div class="recommend">
-  <div class="slider-wrapper">
-    <div class="slider-content">
-      <Slider v-if="sliders.length" :sliders="sliders"></Slider>
+  <Scroll>
+    <div class="recommend-content">
+      <div class="slider-wrapper">
+        <div class="slider-content">
+          <Slider v-if="sliders.length" :sliders="sliders"></Slider>
+        </div>
+      </div>
+      <div class="recommend-list">
+        <h1 class="list-title">热门歌单推荐</h1>
+        <ul>
+          <li
+            v-for="item in albums"
+            class="item"
+            :key="item.id"
+          >
+            <div class="icon">
+              <img :src="item.pic" height="60" width="60">
+            </div>
+            <div class="text">
+                <h2 class="name">
+                  {{ item.username }}
+                </h2>
+                <p class="title">
+                  {{ item.title }}
+                </p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </Scroll>
+
 </div>
 </template>
 
 <script>
 import { getRecommend } from '@/service/recommend'
-import Slider from '@/components/base/slider/slider.vue'
+import Slider from '@/components/base/slider/slider'
+import Scroll from '@/components/base/scroll/scroll'
 export default {
     name: 'recommend',
     data() {
@@ -20,7 +48,8 @@ export default {
       }
     },
     components: {
-      Slider
+      Slider,
+      Scroll
     },
    async created() {
       const result = await getRecommend()
@@ -54,43 +83,43 @@ export default {
           height: 100%;
         }
       }
-      // .recommend-list {
-      //   .list-title {
-      //     height: 65px;
-      //     line-height: 65px;
-      //     text-align: center;
-      //     font-size: $font-size-medium;
-      //     color: $color-theme;
-      //   }
-      //   .item {
-      //     display: flex;
-      //     box-sizing: border-box;
-      //     align-items: center;
-      //     padding: 0 20px 20px 20px;
+      .recommend-list {
+        .list-title {
+          height: 65px;
+          line-height: 65px;
+          text-align: center;
+          font-size: $font-size-medium;
+          color: $color-theme;
+        }
+        .item {
+          display: flex;
+          box-sizing: border-box;
+          align-items: center;
+          padding: 0 20px 20px 20px;
 
-      //     .icon {
-      //       flex: 0 0 60px;
-      //       width: 60px;
-      //       padding-right: 20px;
-      //     }
-      //     .text {
-      //       display: flex;
-      //       flex-direction: column;
-      //       justify-content: center;
-      //       flex: 1;
-      //       line-height: 20px;
-      //       overflow: hidden;
-      //       font-size: $font-size-medium;
-      //     }
-      //     .name {
-      //       margin-bottom: 10px;
-      //       color: $color-text;
-      //     }
-      //     .title {
-      //       color: $color-text-d;
-      //     }
-      //   }
-      // }
+          .icon {
+            flex: 0 0 60px;
+            width: 60px;
+            padding-right: 20px;
+          }
+          .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            line-height: 20px;
+            overflow: hidden;
+            font-size: $font-size-medium;
+          }
+          .name {
+            margin-bottom: 10px;
+            color: $color-text;
+          }
+          .title {
+            color: $color-text-d;
+          }
+        }
+      }
     }
   }
 
