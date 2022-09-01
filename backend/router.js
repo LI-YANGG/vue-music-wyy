@@ -197,13 +197,13 @@ function registerRecommend(app) {
         }
 
         // 往前端发送一个标准格式的响应数据，包括成功错误码和数据
-        res.json({
-          code: ERR_OK,
-          result: {
-            sliders,
-            albums
-          }
-        })
+          res.json({
+            code: ERR_OK,
+            result: {
+              sliders,
+              albums
+            }
+          })
       } else {
         res.json(data)
       }
