@@ -15,12 +15,16 @@ export default function useSlider(wrapperRef) {
             click: true, // 允许点击
             momentum: false, // 关闭滚动动画
             bounce: false, // 关闭回弹动画
-            probeType: 2, // 派发滚动事件的模式
+            probeType: 3, // 派发滚动事件的模式
             slide: true // 是否打开滚动模式
         })
         // 添加一个滚动事件，在滚动之前获取到将要滚动的下标
         sliderVal.on('slideWillChange', (page) => {
             currentPageIndex.value = page.pageX
+        })
+        sliderVal.on('scroll', (page) => {
+            console.log('我开始滚动里')
+            // currentPageIndex.value = page.pageX
         })
     })
 

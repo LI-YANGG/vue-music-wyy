@@ -1,6 +1,6 @@
 <template>
 <div class="recommend" v-loading="loading">
-  <Scroll>
+  <scroll>
     <div class="recommend-content">
       <div class="slider-wrapper">
         <div class="slider-content">
@@ -30,7 +30,7 @@
         </ul>
       </div>
     </div>
-  </Scroll>
+  </scroll>
 
 </div>
 </template>

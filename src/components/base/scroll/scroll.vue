@@ -14,11 +14,16 @@
         click: {
             type: Boolean,
             default: true
+        },
+        probeType: { // 滚动派发事件的模式
+            type: Number,
+            default: 0
         }
     },
-    setup(props) {
+    // emits: ['scroll'],
+    setup(props, { emit }) {
        const rootRef = ref(null)
-       userScroll(rootRef, props)
+       userScroll(rootRef, props, emit)
 
        return {
             rootRef
@@ -26,3 +31,6 @@
     }
  }
  </script>
+
+ <style lang="scss" scoped >
+ </style>
