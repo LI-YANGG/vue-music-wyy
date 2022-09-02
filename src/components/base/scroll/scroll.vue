@@ -20,13 +20,14 @@
             default: 0
         }
     },
-    // emits: ['scroll'],
+    emits: ['scroll'],
     setup(props, { emit }) {
        const rootRef = ref(null)
-       userScroll(rootRef, props, emit)
+       const scroll = userScroll(rootRef, props, emit)
 
        return {
-            rootRef
+            rootRef,
+            scroll
        }
     }
  }

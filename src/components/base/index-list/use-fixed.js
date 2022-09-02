@@ -8,7 +8,6 @@ export default function useFixed(props) {
 
     // 根据滚动后对应下标的变化，计算出title值
     const fixedTitle = computed(() => {
-        console.log('11111')
         const currentGroup = props.data[currentIndex.value]
         return currentGroup ? currentGroup.title : ''
     })

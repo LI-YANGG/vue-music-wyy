@@ -1,9 +1,11 @@
 <template>
-<!-- :probe-type="3" -->
-      <!-- @scroll="onScroll" -->
-      <!-- <div > -->
-    <scroll class="index-list">
-        <ul ref="groupRef">
+    <scroll
+      :probe-type="3"
+      @scroll="onScroll"
+      class="scroll-box"
+      ref="scrollRef"
+    >
+          <ul class="index-list" ref="groupRef">
             <li v-for="group in data" :key="group.title" class="group">
                 <h2 class="title">{{ group.title }}</h2>
                 <ul>
@@ -14,17 +16,34 @@
                 </ul>
             </li>
         </ul>
-        <!-- <div class="fixed">
+        <div class="fixed">
             <div class="fixed-title">{{ fixedTitle }}</div>
-        </div> -->
+        </div>
+        <div
+          class="shortcut"
+          @touchstart.stop.prevent="onShortcutTouchStart"
+          @touchmove.stop.prevent
+          @touchend.stop.prevent
+        >
+            <ul>
+              <li
+                v-for="(item, index) in shortcutList"
+                :key="item"
+                :data-index="index"
+                class="item"
+              >
+                {{ item }}
+              </li>
+            </ul>
+        </div>
     </scroll>
-    <!-- </div> -->
 </template>
 
 <script>
 
 import Scroll from '@/components/base/scroll/scroll.vue'
 import useFixed from './use-fixed'
+import useShortcut from './use-shortcut'
 export default {
    name: 'index-list',
    components: {
@@ -40,24 +59,31 @@ export default {
    },
    setup(props) {
       const { groupRef, onScroll, fixedTitle } = useFixed(props)
+      const { shortcutList, onShortcutTouchStart, scrollRef } = useShortcut(props, groupRef)
 
       return {
           groupRef,
           onScroll,
-          fixedTitle
+          fixedTitle,
+          shortcutList,
+          onShortcutTouchStart,
+          scrollRef
       }
    }
 }
 </script>
 
 <style lang="scss" scoped >
-    .index-list {
-      position: relative;
-    overflow: hidden;
-    // position: fixed;
+.scroll-box{
+    position: relative;
     width: 100%;
-    // height: 100%;
-    // overflow: hidden;
+    height: 101%;
+    overflow: hidden;
+    .index-list {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
     background: $color-background;
     .group {
       padding-bottom: 30px;
@@ -85,45 +111,10 @@ export default {
         }
       }
     }
-    .fixed {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      .fixed-title {
-        height: 30px;
-        line-height: 30px;
-        padding-left: 20px;
-        font-size: $font-size-small;
-        color: $color-text-l;
-        background: $color-highlight-background;
-      }
-    }
-    // .shortcut {
-    //   position: absolute;
-    //   right: 4px;
-    //   top: 50%;
-    //   transform: translateY(-50%);
-    //   width: 20px;
-    //   padding: 20px 0;
-    //   border-radius: 10px;
-    //   text-align: center;
-    //   background: $color-background-d;
-    //   font-family: Helvetica;
-    //   .item {
-    //     padding: 3px;
-    //     line-height: 1;
-    //     color: $color-text-l;
-    //     font-size: $font-size-small;
-    //     &.current {
-    //       color: $color-theme
-    //     }
-    //   }
-    // }
   }
   .fixed {
       position: absolute;
-      top: 0;
+      top: -1px;
       left: 0;
       width: 100%;
       .fixed-title {
@@ -135,4 +126,27 @@ export default {
         background: $color-highlight-background;
       }
     }
+    .shortcut {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      padding: 20px 0;
+      border-radius: 10px;
+      text-align: center;
+      background: $color-background-d;
+      font-family: Helvetica;
+      z-index: 9999;
+      .item {
+        padding: 3px;
+        line-height: 1;
+        color: $color-text-l;
+        font-size: $font-size-small;
+        &.current {
+          color: $color-theme
+        }
+      }
+    }
+}
 </style>
