@@ -9,7 +9,7 @@
             <li v-for="group in data" :key="group.title" class="group">
                 <h2 class="title">{{ group.title }}</h2>
                 <ul>
-                    <li v-for="item in group.list" :key="item.id" class="item">
+                    <li v-for="item in group.list" :key="item.id" class="item" @click="selectItem(item)">
                         <img v-lazy="item.pic" class="avatar">
                         <span class="name">{{ item.name }}</span>
                     </li>
@@ -19,7 +19,7 @@
         <div class="fixed">
             <div class="fixed-title">{{ fixedTitle }}</div>
         </div>
-        <div
+        <!-- <div
           class="shortcut"
           @touchstart.stop.prevent="onShortcutTouchStart"
           @touchmove.stop.prevent
@@ -35,7 +35,7 @@
                 {{ item }}
               </li>
             </ul>
-        </div>
+        </div> -->
     </scroll>
 </template>
 
@@ -57,17 +57,22 @@ export default {
             }
         }
    },
-   setup(props) {
+   emits: ['select'],
+   setup(props, { emit }) {
       const { groupRef, onScroll, fixedTitle } = useFixed(props)
       const { shortcutList, onShortcutTouchStart, scrollRef } = useShortcut(props, groupRef)
 
+      function selectItem(item) {
+          emit('select', item) // 把这个事件派发给外面
+      }
       return {
           groupRef,
           onScroll,
           fixedTitle,
           shortcutList,
           onShortcutTouchStart,
-          scrollRef
+          scrollRef,
+          selectItem
       }
    }
 }

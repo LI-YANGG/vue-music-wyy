@@ -12,7 +12,8 @@ export default function userScroll(wrapperRef, options, emit) {
         console.log('wrapperRef', wrapperRef)
         const scrollVal = scroll.value = new BScroll(wrapperRef.value, {
             ObserveDOM: true, // 当dom改变后会自动更新
-            probeType: 3
+            probeType: 3,
+            click: true
         })
         if (options.probeType > 0) {
             scrollVal.on('scroll', (pos) => {
