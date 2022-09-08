@@ -82,7 +82,7 @@ export default {
 .scroll-box{
     position: relative;
     width: 100%;
-    height: 101%;
+    height: 100%;
     overflow: hidden;
     .index-list {
     position: absolute;
